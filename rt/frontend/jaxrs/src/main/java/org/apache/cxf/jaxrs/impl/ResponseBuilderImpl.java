@@ -280,21 +280,20 @@ public final class ResponseBuilderImpl extends ResponseBuilder implements Clonea
     }
 
     @Override
-    public ResponseBuilder link(URI arg0, String arg1) {
-        // TODO Auto-generated method stub
-        return null;
+    public ResponseBuilder link(URI href, String rel) {
+        Link.Builder linkBuilder = new LinkBuilderImpl();
+        return links(linkBuilder.uri(href).rel(rel).build());
     }
 
     @Override
-    public ResponseBuilder link(String arg0, String arg1) {
-        // TODO Auto-generated method stub
-        return null;
+    public ResponseBuilder link(String href, String rel) {
+        Link.Builder linkBuilder = new LinkBuilderImpl();
+        return links(linkBuilder.uri(href).rel(rel).build());
     }
 
     @Override
-    public ResponseBuilder links(Link... arg0) {
-        // TODO Auto-generated method stub
-        return null;
+    public ResponseBuilder links(Link... links) {
+        return addHeader(HttpHeaders.LINK, (Object[])links);
     }
 
     @Override
