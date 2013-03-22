@@ -33,7 +33,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Variant;
 
 import org.apache.cxf.jaxrs.utils.HttpUtils;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -179,9 +178,9 @@ public class ResponseBuilderImplTest extends Assert {
     private void checkBuild(Response r, int status, Object entity, 
                             MetadataMap<String, Object> meta) {
         ResponseImpl ri = (ResponseImpl)r;
-        assertEquals("Wrong status", ri.getStatus(), status);
-        assertSame("Wrong entity", ri.getEntity(), entity);
-        assertEquals("Wrong meta", ri.getMetadata(), meta);
+        assertEquals("Wrong status", status, ri.getStatus());
+        assertSame("Wrong entity", entity, ri.getEntity());
+        assertEquals("Wrong meta", meta, ri.getMetadata());
     }
     
     @Test
