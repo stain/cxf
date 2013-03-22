@@ -257,26 +257,26 @@ public final class ResponseBuilderImpl extends ResponseBuilder implements Clonea
 
     @Override
     public ResponseBuilder allow(String... arg0) {
-        // TODO Auto-generated method stub
-        return null;
+        // TODO: Implement
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Override
     public ResponseBuilder allow(Set<String> arg0) {
-        // TODO Auto-generated method stub
-        return null;
+        // TODO: Implement
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Override
     public ResponseBuilder encoding(String arg0) {
-        // TODO Auto-generated method stub
-        return null;
+        // TODO: Implement
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Override
     public ResponseBuilder entity(Object arg0, Annotation[] arg1) {
-        // TODO Auto-generated method stub
-        return null;
+        // TODO: Implement
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Override
@@ -298,13 +298,13 @@ public final class ResponseBuilderImpl extends ResponseBuilder implements Clonea
 
     @Override
     public ResponseBuilder replaceAll(MultivaluedMap<String, Object> arg0) {
-        // TODO Auto-generated method stub
-        return null;
+        // TODO: Implement
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Override
     public ResponseBuilder variants(Variant... arg0) {
-        // TODO Auto-generated method stub
-        return null;
+        // TODO: Implement
+        throw new UnsupportedOperationException("Not implemented");
     }
 }
