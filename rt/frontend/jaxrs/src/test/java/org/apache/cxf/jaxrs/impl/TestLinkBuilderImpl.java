@@ -6,6 +6,7 @@ import java.net.URI;
 
 import javax.ws.rs.core.Link;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestLinkBuilderImpl {
@@ -40,6 +41,7 @@ public class TestLinkBuilderImpl {
         assertEquals("<http://example.com/page3>;rel=\"next\"", nextLink.toString());
     }
 
+    @Ignore("Ignored due to CXF-4919")
     @Test
     public void copyOnRelativeBuild() throws Exception {
         URI base = URI.create("http://example.com/page2");
