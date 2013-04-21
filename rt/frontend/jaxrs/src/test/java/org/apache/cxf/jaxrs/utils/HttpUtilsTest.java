@@ -58,6 +58,22 @@ public class HttpUtilsTest extends Assert {
     public void testUrlEncode() {
         assertEquals("%2B+", HttpUtils.urlEncode("+ "));
     }
+
+    @Test
+    public void testRelativize() throws Exception {
+    	// From CXF-4919
+
+        URI ab = URI.create("http://example.com/a/b/");
+        URI abcd = URI.create("http://example.com/a/b/c/d");
+        assertEquals("", HttpUtils.relativize(ab, ab));
+        assertEquals(URI.create("c/d"), HttpUtils.relativize(ab, abcd));
+        assertEquals(URI.create("../"), HttpUtils.relativize(abcd, ab));
+        assertEquals("", HttpUtils.relativize(abcd, abcd));
+        URI abcd2 = URI.create("http://example.com/a/b/c/d2");
+        assertEquals(URI.create("d2"), HttpUtils.relativize(abcd, abcd2));
+        URI ab2cd = URI.create("http://example.com/a/b2/c/d");
+        assertEquals(URI.create("../../b2/c/d"), HttpUtils.relativize(abcd, ab2cd));
+    }
      
     
     @Test
