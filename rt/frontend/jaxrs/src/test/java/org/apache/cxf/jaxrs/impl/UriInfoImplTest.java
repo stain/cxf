@@ -77,20 +77,18 @@ public class UriInfoImplTest extends Assert {
         assertEquals("Wrong Request Uri", "http://localhost:8080/app/root/a/b/c", 
                      u.getRequestUri().toString());
         URI relativized = u.relativize(URI.create("http://localhost:8080/app/root/a/d/e"));
-        assertEquals("../../d/e", relativized.toString());
+        assertEquals("../d/e", relativized.toString());
     }
     
     @Test
 	public void testRelativizeAlreadyRelative() throws Exception {
-    	Message mockMessage = mockMessage("http://localhost:8080/app/root/", "/soup");
+    	Message mockMessage = mockMessage("http://localhost:8080/app/root/", "/soup/");
 		UriInfoImpl u = new UriInfoImpl(
                 mockMessage, null);
-		assertEquals("http://localhost:8080/app/root/soup", u.getRequestUri().toString());
-    	URI x = URI.create("x");
-		assertEquals("http://localhost:8080/app/root/x", u.resolve(x).toString());
-
-    	// and relative it should be the same
-    	assertEquals("http://localhost:8080/app/root/x", u.relativize(x).toString());
+		assertEquals("http://localhost:8080/app/root/soup/", u.getRequestUri().toString());
+    	URI x = URI.create("x/");
+		assertEquals("http://localhost:8080/app/root/x/", u.resolve(x).toString());
+    	assertEquals("../x/", u.relativize(x).toString());
 	}
 
     @Test
@@ -133,8 +131,7 @@ public class UriInfoImplTest extends Assert {
     	
     	URI relativeToBase = URI.create("a/b/c/d/e");
     	assertEquals("d/e", u.relativize(relativeToBase).toString());
-    	
-	}
+   	}
     
     @Test
    	public void testRelativizeSibling() throws Exception {
@@ -147,7 +144,7 @@ public class UriInfoImplTest extends Assert {
        	assertEquals("c.pdf", u.relativize(absolute).toString());
        	
        	URI relativeToBase = URI.create("a/b/c.pdf");
-       	assertEquals("c.pdf", u.relativize(relativeToBase).toString());       	
+       	assertEquals("c.pdf", u.relativize(relativeToBase).toString());
    	}
     
     @Test
@@ -179,8 +176,23 @@ public class UriInfoImplTest extends Assert {
        	URI relativeToBase = URI.create("a/b2/c2/");
        	assertEquals("../../b2/c2/", u.relativize(relativeToBase).toString());       	
    	}
-    
+
     @Test
+	public void testRelativizeOutsideBase() throws Exception {
+	   	Message mockMessage = mockMessage("http://example.com/app/root/", "/a/b/c/");
+		UriInfoImpl u = new UriInfoImpl(
+	               mockMessage, null);
+		// NOTE: All end with slashes (imagine they are folders)
+		assertEquals("http://example.com/app/root/a/b/c/", u.getRequestUri().toString());
+		URI absolute = URI.create("http://example.com/otherapp/fred.txt");
+	   	
+		assertEquals("../../../../../otherapp/fred.txt", u.relativize(absolute).toString());
+	   	
+	   	URI relativeToBase = URI.create("../../otherapp/fred.txt");
+	   	assertEquals("../../../../../otherapp/fred.txt", u.relativize(relativeToBase).toString());       	
+	}
+
+	@Test
     public void testResolveNormalizeComplex() throws Exception {
         UriInfoImpl u = new UriInfoImpl(mockMessage("http://localhost:8080/baz/1/2/3/", null), null);
         assertEquals("Wrong base path", "http://localhost:8080/baz/1/2/3/", 
