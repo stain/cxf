@@ -65,10 +65,10 @@ public class HttpUtilsTest extends Assert {
 
         URI ab = URI.create("http://example.com/a/b/");
         URI abcd = URI.create("http://example.com/a/b/c/d");
-        assertEquals("", HttpUtils.relativize(ab, ab));
+        assertEquals(URI.create(""), HttpUtils.relativize(ab, ab));
         assertEquals(URI.create("c/d"), HttpUtils.relativize(ab, abcd));
         assertEquals(URI.create("../"), HttpUtils.relativize(abcd, ab));
-        assertEquals("", HttpUtils.relativize(abcd, abcd));
+        assertEquals(URI.create(""), HttpUtils.relativize(abcd, abcd));
         URI abcd2 = URI.create("http://example.com/a/b/c/d2");
         assertEquals(URI.create("d2"), HttpUtils.relativize(abcd, abcd2));
         URI ab2cd = URI.create("http://example.com/a/b2/c/d");
