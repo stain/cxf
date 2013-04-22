@@ -18,13 +18,11 @@
  */
 package org.apache.cxf.jaxrs.impl;
 
-import static org.junit.Assert.assertEquals;
-
 import java.net.URI;
-
 import javax.ws.rs.core.Link;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class LinkBuilderImplTest {
     

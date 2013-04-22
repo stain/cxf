@@ -61,7 +61,7 @@ public class HttpUtilsTest extends Assert {
 
     @Test
     public void testRelativize() throws Exception {
-    	// Adapted from CXF-4919
+        // Adapted from CXF-4919
 
         URI ab = URI.create("http://example.com/a/b/");
         URI abcd = URI.create("http://example.com/a/b/c/d");
