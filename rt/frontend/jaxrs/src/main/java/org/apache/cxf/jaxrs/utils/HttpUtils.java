@@ -510,21 +510,25 @@ public final class HttpUtils {
         // "http://example.com/fred".
         URI baseRel = URI.create("/").resolve(root.relativize(base));
         URI uriRel = URI.create("/").resolve(root.relativize(uri));
-
-        // Start conditions: Assume they are the same
-        URI commonBase = baseRel;
-        URI relative = URI.create("");
         
-        if (uriRel.getPath().startsWith(commonBase.getPath())) {
-            // URI.relativize can deal with this
+        // Is it same path?
+        if (baseRel.getPath().equals(uriRel.getPath())) {
+            return baseRel.relativize(uriRel);
+        }
+        
+        // Direct siblings? (ie. in same folder)
+        URI commonBase = baseRel.resolve("./");        
+        if (commonBase.equals(uriRel.resolve("./"))) {
             return commonBase.relativize(uriRel);
         }
-        // Otherwise, we'll just keep climbing up until we find a common
-        // base
+        
+        // No, then just keep climbing up until we find a common base. 
+        URI relative = URI.create("");
         while (!(uriRel.getPath().startsWith(commonBase.getPath())) && !(commonBase.getPath().equals("/"))) {
             commonBase = commonBase.resolve("../");
             relative = relative.resolve("../");            
         }
+
         // Now we can use URI.relativize
         URI relToCommon = commonBase.relativize(uriRel);
         // and prepend the needed ../
