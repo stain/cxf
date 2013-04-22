@@ -536,10 +536,4 @@ public final class HttpUtils {
         
     }
     
-    private static String getUriPrefix(URI uri) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(uri.getScheme()).append(uri.getHost()).append(uri.getPort());
-        
-        return sb.toString();
-    }
 }
