@@ -61,18 +61,25 @@ public class HttpUtilsTest extends Assert {
 
     @Test
     public void testRelativize() throws Exception {
-    	// From CXF-4919
+    	// Adapted from CXF-4919
 
         URI ab = URI.create("http://example.com/a/b/");
         URI abcd = URI.create("http://example.com/a/b/c/d");
         assertEquals(URI.create(""), HttpUtils.relativize(ab, ab));
         assertEquals(URI.create("c/d"), HttpUtils.relativize(ab, abcd));
         assertEquals(URI.create("../"), HttpUtils.relativize(abcd, ab));
+        // empty string meaning the very same URI
         assertEquals(URI.create(""), HttpUtils.relativize(abcd, abcd));
         URI abcd2 = URI.create("http://example.com/a/b/c/d2");
         assertEquals(URI.create("d2"), HttpUtils.relativize(abcd, abcd2));
         URI ab2cd = URI.create("http://example.com/a/b2/c/d");
-        assertEquals(URI.create("../../b2/c/d"), HttpUtils.relativize(abcd, ab2cd));
+        assertEquals(URI.create("../../b2/c/d"), HttpUtils.relativize(abcd, ab2cd));  
+        
+        // Check anchors are preserved
+        URI abcdAnchor = URI.create("http://example.com/a/b/c/d#anchor");
+        assertEquals(URI.create("#anchor"), HttpUtils.relativize(abcd, abcdAnchor));
+        URI ab2cdAnchor = URI.create("http://example.com/a/b2/c/d#anchor");
+        assertEquals(URI.create("../../b2/c/d#anchor"), HttpUtils.relativize(abcd, ab2cdAnchor));        
     }
      
     
