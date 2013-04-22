@@ -19,8 +19,6 @@
 
 package org.apache.cxf.jaxrs.impl;
 
-import static org.junit.Assert.*;
-
 import java.net.URI;
 import java.util.List;
 
